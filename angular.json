@@ -1,0 +1,128 @@
+{
+  "version": 1,
+  "projects": {
+    "casera-ya": {
+      "projectType": "application",
+      "root": "apps/casera-ya",
+      "sourceRoot": "apps/casera-ya/src",
+      "prefix": "public",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/casera-ya",
+            "index": "apps/casera-ya/src/index.html",
+            "main": "apps/casera-ya/src/main.ts",
+            "polyfills": "apps/casera-ya/src/polyfills.ts",
+            "tsConfig": "apps/casera-ya/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/casera-ya/src/favicon.ico",
+              "apps/casera-ya/src/assets"
+            ],
+            "styles": ["apps/casera-ya/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/casera-ya/src/environments/environment.ts",
+                  "with": "apps/casera-ya/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "casera-ya:build:production"
+            },
+            "development": {
+              "browserTarget": "casera-ya:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "casera-ya:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/casera-ya/src/**/*.ts",
+              "apps/casera-ya/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/casera-ya"],
+          "options": {
+            "jestConfig": "apps/casera-ya/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "casera-ya-e2e": {
+      "root": "apps/casera-ya-e2e",
+      "sourceRoot": "apps/casera-ya-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/casera-ya-e2e/cypress.json",
+            "devServerTarget": "casera-ya:serve:development",
+            "tsConfig": "apps/casera-ya-e2e/tsconfig.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "casera-ya:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": ["apps/casera-ya-e2e/**/*.{js,ts}"]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["casera-ya"]
+    }
+  }
+}
